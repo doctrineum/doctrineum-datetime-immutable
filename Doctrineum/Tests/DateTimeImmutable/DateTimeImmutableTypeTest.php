@@ -148,4 +148,18 @@ class DateTimeImmutableTypeTest extends TestWithMockery
         );
     }
 
+    /**
+     * @test
+     * @expectedException \Doctrine\DBAL\Types\ConversionException
+     */
+    public function I_can_not_convert_invalid_value_to_date()
+    {
+        DateTimeImmutableType::registerSelf();
+        $dateTimeImmutableType = DateTimeImmutableType::getType(DateTimeImmutableType::getTypeName());
+        $platform = $this->createPlatform();
+        $platform->shouldReceive('getDateTimeFormatString')
+            ->andReturn($format = 'Y-m-d H:i:s');
+        $dateTimeImmutableType->convertToPHPValue('passed tomorrow', $platform);
+    }
+
 }
