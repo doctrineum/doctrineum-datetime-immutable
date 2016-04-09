@@ -112,11 +112,15 @@ class DateTimeImmutableType extends Type
 
         $val = \DateTimeImmutable::createFromFormat($platform->getDateTimeFormatString(), $value);
 
-        if ( ! $val) {
-            $val = date_create_immutable($value);
+        if (!$val) {
+            try {
+                $val = date_create_immutable($value);
+            } catch (\Exception $exception) { // due to HHVM behavior
+                $val = null; // exception will be thrown bellow
+            }
         }
 
-        if ( ! $val) {
+        if (!$val) {
             throw Exceptions\ConversionFailed::conversionFailedFormat($value, $this->getName(), $platform->getDateTimeFormatString());
         }
 
