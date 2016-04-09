@@ -1,7 +1,7 @@
 {
-  "name": "doctrineum/scalar",
+  "name": "doctrineum/datetime-immutable",
   "type": "library",
-  "description": "Enumeration type and value dependent sub-type for Doctrine",
+  "description": "DateTimeImmutable as a type for Doctrine",
   "keywords": [
     "Doctrine",
     "datetime",
@@ -24,12 +24,12 @@
   "require": {
     "php": ">=5.5",
     "doctrine/dbal": "~2.4",
-    "granam/strict-object": "dev-master",
-    "granam/scalar": "dev-master"
+    "granam/strict-object": "^1.2"
   },
   "require-dev": {
     "phpunit/phpunit": "~4.4",
-    "mockery/mockery": "dev-master"
+    "mockery/mockery": "dev-master",
+    "granam/tools": "dev-master"
   },
   "minimum-stability": "dev",
   "prefer-stable": true
