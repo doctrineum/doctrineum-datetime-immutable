@@ -24,12 +24,12 @@
   "require": {
     "php": ">=5.5",
     "doctrine/dbal": "~2.4",
-    "granam/strict-object": "^1.2"
+    "granam/strict-object": "dev-master",
+    "granam/tools": "dev-master"
   },
   "require-dev": {
     "phpunit/phpunit": "~4.4",
-    "mockery/mockery": "dev-master",
-    "granam/tools": "dev-master"
+    "mockery/mockery": "dev-master"
   },
   "minimum-stability": "dev",
   "prefer-stable": true
