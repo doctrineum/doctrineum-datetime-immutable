@@ -43,3 +43,9 @@ $entityManager->persist($foo);
 $entityManager->flush();
 
 ```
+
+## Common pitfalls
+
+Be aware of timezone which is not persisted and therefore can not be restored on fetch.
+Doctrine uses [server default timezone](http://php.net/manual/en/function.date-default-timezone-get.php) for it.
+For details and most of all, for solution, see [Doctrine docs](http://doctrine-orm.readthedocs.org/projects/doctrine-orm/en/latest/cookbook/working-with-datetime.html#handling-different-timezones-with-the-datetime-type)
