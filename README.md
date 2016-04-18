@@ -1,3 +1,9 @@
+## Do you need it?
+
+ - first of all, think twice if you need a new type into your application
+    * isn't [Doctrine \DateTime](http://doctrine-orm.readthedocs.org/projects/doctrine-orm/en/latest/cookbook/working-with-datetime.html) enough?
+ - on the other side, immutable object of any time can save you a lot of problems and time...
+
 # Usage
 
  - register it
