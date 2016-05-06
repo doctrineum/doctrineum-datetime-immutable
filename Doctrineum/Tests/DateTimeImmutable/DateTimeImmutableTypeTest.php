@@ -4,58 +4,14 @@ namespace Doctrineum\Tests\DateTimeImmutable;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\Type;
 use Doctrineum\DateTimeImmutable\DateTimeImmutableType;
-use Doctrineum\Tests\DateTimeImmutable\Helpers\EnumTypes\IAmUsingOccupiedName;
-use Granam\Tests\Tools\TestWithMockery;
+use Doctrineum\Tests\SelfRegisteringType\AbstractSelfRegisteringTypeTest;
 
-class DateTimeImmutableTypeTest extends TestWithMockery
+class DateTimeImmutableTypeTest extends AbstractSelfRegisteringTypeTest
 {
 
-    /**
-     * @test
-     */
-    public function I_can_register_it()
+    protected function getExpectedTypeName($typeClass = NULL)
     {
-        DateTimeImmutableType::registerSelf();
-        self::assertTrue(Type::hasType(DateTimeImmutableType::getTypeName()));
-        self::assertTrue(DateTimeImmutableType::isRegistered());
-        self::assertFalse(DateTimeImmutableType::registerSelf(), 'Registering already registered should return false');
-    }
-
-    /**
-     * @test
-     * @depends I_can_register_it
-     */
-    public function I_can_get_it()
-    {
-        $instance = Type::getType(DateTimeImmutableType::getTypeName());
-        self::assertInstanceOf(DateTimeImmutableType::getClass(), $instance);
-
-        return $instance;
-    }
-
-    /**
-     * @test
-     * @depends I_can_get_it
-     */
-    public function Its_type_name_is_as_expected()
-    {
-        $expectedTypeName = 'datetime_immutable';
-        self::assertSame(DateTimeImmutableType::getTypeName(), $expectedTypeName);
-
-        $constantName = strtoupper($expectedTypeName);
-        $enumTypeClass = DateTimeImmutableType::getClass();
-        self::assertTrue(defined("$enumTypeClass::$constantName"));
-        self::assertSame($expectedTypeName, constant("$enumTypeClass::$constantName"));
-    }
-
-    /**
-     * @test
-     * @expectedException \Doctrineum\DateTimeImmutable\Exceptions\TypeNameOccupied
-     */
-    public function I_can_not_replace_already_registered_different_type_of_same_name()
-    {
-        DateTimeImmutableType::registerSelf();
-        IAmUsingOccupiedName::registerSelf();
+        return 'datetime_immutable';
     }
 
     /**
@@ -64,7 +20,7 @@ class DateTimeImmutableTypeTest extends TestWithMockery
     public function SQL_declaration_depends_on_platform()
     {
         DateTimeImmutableType::registerSelf();
-        $dateTimeImmutable = DateTimeImmutableType::getType(DateTimeImmutableType::getTypeName());
+        $dateTimeImmutableType = Type::getType(DateTimeImmutableType::DATETIME_IMMUTABLE);
         $platform = $this->createPlatform();
         $fieldDeclaration = [];
         $platform->shouldReceive('getDateTimeTypeDeclarationSQL')
@@ -73,7 +29,7 @@ class DateTimeImmutableTypeTest extends TestWithMockery
             ->andReturn($sqlDeclaration = 'foo');
         self::assertSame(
             $sqlDeclaration,
-            $dateTimeImmutable->getSQLDeclaration($fieldDeclaration, $platform)
+            $dateTimeImmutableType->getSQLDeclaration($fieldDeclaration, $platform)
         );
     }
 
@@ -91,7 +47,7 @@ class DateTimeImmutableTypeTest extends TestWithMockery
     public function Conversion_to_database_value_depends_on_platform()
     {
         DateTimeImmutableType::registerSelf();
-        $dateTimeImmutableType = DateTimeImmutableType::getType(DateTimeImmutableType::getTypeName());
+        $dateTimeImmutableType = Type::getType(DateTimeImmutableType::DATETIME_IMMUTABLE);
         $platform = $this->createPlatform();
         $platform->shouldReceive('getDateTimeFormatString')
             ->once()
@@ -102,7 +58,6 @@ class DateTimeImmutableTypeTest extends TestWithMockery
             $dateTimeImmutableType->convertToDatabaseValue($dateTimeImmutable, $platform)
         );
 
-        $dateTimeImmutableType = DateTimeImmutableType::getType(DateTimeImmutableType::getTypeName());
         self::assertNull(
             $dateTimeImmutableType->convertToDatabaseValue(null, $this->createPlatform())
         );
@@ -114,7 +69,7 @@ class DateTimeImmutableTypeTest extends TestWithMockery
     public function I_can_let_convert_database_value_to_datetime_immutable()
     {
         DateTimeImmutableType::registerSelf();
-        $dateTimeImmutableType = DateTimeImmutableType::getType(DateTimeImmutableType::getTypeName());
+        $dateTimeImmutableType = Type::getType(DateTimeImmutableType::DATETIME_IMMUTABLE);
         self::assertSame(
             $dateTimeImmutable = new \DateTimeImmutable(),
             $dateTimeImmutableType->convertToPHPValue(
@@ -137,25 +92,12 @@ class DateTimeImmutableTypeTest extends TestWithMockery
 
     /**
      * @test
-     */
-    public function I_can_get_name_same_as_type_name()
-    {
-        DateTimeImmutableType::registerSelf();
-        $dateTimeImmutableType = DateTimeImmutableType::getType(DateTimeImmutableType::getTypeName());
-        self::assertSame(
-            DateTimeImmutableType::getTypeName(),
-            $dateTimeImmutableType->getName()
-        );
-    }
-
-    /**
-     * @test
      * @expectedException \Doctrine\DBAL\Types\ConversionException
      */
     public function I_can_not_convert_invalid_value_to_date()
     {
         DateTimeImmutableType::registerSelf();
-        $dateTimeImmutableType = DateTimeImmutableType::getType(DateTimeImmutableType::getTypeName());
+        $dateTimeImmutableType = Type::getType(DateTimeImmutableType::DATETIME_IMMUTABLE);
         $platform = $this->createPlatform();
         $platform->shouldReceive('getDateTimeFormatString')
             ->andReturn($format = 'Y-m-d H:i:s');

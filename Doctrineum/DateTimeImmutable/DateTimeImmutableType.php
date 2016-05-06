@@ -4,6 +4,7 @@ namespace Doctrineum\DateTimeImmutable;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\DateTimeType;
 use Doctrine\DBAL\Types\Type;
+use Doctrineum\SelfRegisteringType\AbstractSelfRegisteringType;
 
 /**
  * @method static DateTimeImmutableType getType($name)
@@ -14,14 +15,9 @@ class DateTimeImmutableType extends AbstractSelfRegisteringType
     const DATETIME_IMMUTABLE = 'datetime_immutable';
 
     /**
-     * @var DateTimeType
-     */
-    private $dateTimeType;
-
-    /**
      * @inheritdoc
      */
-    public static function getTypeName()
+    public function getName()
     {
         return self::DATETIME_IMMUTABLE;
     }
@@ -33,6 +29,11 @@ class DateTimeImmutableType extends AbstractSelfRegisteringType
     {
         return $this->getDateTimeType()->getSQLDeclaration($fieldDeclaration, $platform);
     }
+
+    /**
+     * @var DateTimeType
+     */
+    private $dateTimeType;
 
     /**
      * @return DateTimeType

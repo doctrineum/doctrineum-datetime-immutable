@@ -5,9 +5,5 @@ use Doctrineum\DateTimeImmutable\DateTimeImmutableType;
 
 class IAmUsingOccupiedName extends DateTimeImmutableType
 {
-    public static function getTypeName()
-    {
-        return parent::getTypeName();
-    }
-
+    // not overloading parent type name
 }
