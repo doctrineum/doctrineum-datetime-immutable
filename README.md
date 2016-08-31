@@ -1,3 +1,6 @@
+[![Test Coverage](https://codeclimate.com/github/jaroslavtyc/doctrineum-datetime-immutable/badges/coverage.svg)](https://codeclimate.com/github/jaroslavtyc/doctrineum-datetime-immutable/coverage)
+[![License](https://poser.pugx.org/doctrineum/datetime-immutable/license)](https://packagist.org/packages/doctrineum/datetime-immutable)
+
 ## Do you need it?
 
  - first of all, think twice if you need a new type into your application
