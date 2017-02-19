@@ -2,8 +2,9 @@
 namespace Doctrineum\Tests\Scalar\Exceptions;
 
 use Doctrineum\DateTimeImmutable\Exceptions\ConversionFailed;
+use PHPUnit\Framework\TestCase;
 
-class ConversionFailedTest extends \PHPUnit_Framework_TestCase
+class ConversionFailedTest extends TestCase
 {
     /**
      * @test
