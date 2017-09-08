@@ -1,4 +1,6 @@
 <?php
+declare(strict_types = 1); // on PHP 7+ are standard PHP methods strict to types of given parameters
+
 namespace Doctrineum\Tests\DateTimeImmutable;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
@@ -9,9 +11,9 @@ use Doctrineum\Tests\SelfRegisteringType\AbstractSelfRegisteringTypeTest;
 class DateTimeImmutableTypeTest extends AbstractSelfRegisteringTypeTest
 {
 
-    protected function getExpectedTypeName($typeClass = NULL)
+    protected function getExpectedTypeName(string $typeClass = null): string
     {
-        return 'datetime_immutable';
+        return 'doctrineum_datetime_immutable';
     }
 
     /**
@@ -20,7 +22,7 @@ class DateTimeImmutableTypeTest extends AbstractSelfRegisteringTypeTest
     public function SQL_declaration_depends_on_platform()
     {
         DateTimeImmutableType::registerSelf();
-        $dateTimeImmutableType = Type::getType(DateTimeImmutableType::DATETIME_IMMUTABLE);
+        $dateTimeImmutableType = Type::getType(DateTimeImmutableType::DOCTRINEUM_DATETIME_IMMUTABLE);
         $platform = $this->createPlatform();
         $fieldDeclaration = [];
         $platform->shouldReceive('getDateTimeTypeDeclarationSQL')
@@ -36,7 +38,7 @@ class DateTimeImmutableTypeTest extends AbstractSelfRegisteringTypeTest
     /**
      * @return \Mockery\MockInterface|AbstractPlatform
      */
-    private function createPlatform()
+    private function createPlatform(): AbstractPlatform
     {
         return $this->mockery(AbstractPlatform::class);
     }
@@ -47,7 +49,7 @@ class DateTimeImmutableTypeTest extends AbstractSelfRegisteringTypeTest
     public function Conversion_to_database_value_depends_on_platform()
     {
         DateTimeImmutableType::registerSelf();
-        $dateTimeImmutableType = Type::getType(DateTimeImmutableType::DATETIME_IMMUTABLE);
+        $dateTimeImmutableType = Type::getType(DateTimeImmutableType::DOCTRINEUM_DATETIME_IMMUTABLE);
         $platform = $this->createPlatform();
         $platform->shouldReceive('getDateTimeFormatString')
             ->once()
@@ -69,7 +71,7 @@ class DateTimeImmutableTypeTest extends AbstractSelfRegisteringTypeTest
     public function I_can_let_convert_database_value_to_datetime_immutable()
     {
         DateTimeImmutableType::registerSelf();
-        $dateTimeImmutableType = Type::getType(DateTimeImmutableType::DATETIME_IMMUTABLE);
+        $dateTimeImmutableType = Type::getType(DateTimeImmutableType::DOCTRINEUM_DATETIME_IMMUTABLE);
         self::assertSame(
             $dateTimeImmutable = new \DateTimeImmutable(),
             $dateTimeImmutableType->convertToPHPValue(
@@ -97,7 +99,7 @@ class DateTimeImmutableTypeTest extends AbstractSelfRegisteringTypeTest
     public function I_can_not_convert_invalid_value_to_date()
     {
         DateTimeImmutableType::registerSelf();
-        $dateTimeImmutableType = Type::getType(DateTimeImmutableType::DATETIME_IMMUTABLE);
+        $dateTimeImmutableType = Type::getType(DateTimeImmutableType::DOCTRINEUM_DATETIME_IMMUTABLE);
         $platform = $this->createPlatform();
         $platform->shouldReceive('getDateTimeFormatString')
             ->andReturn($format = 'Y-m-d H:i:s');

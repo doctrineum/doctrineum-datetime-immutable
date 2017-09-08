@@ -12,14 +12,14 @@ use Doctrineum\SelfRegisteringType\AbstractSelfRegisteringType;
 class DateTimeImmutableType extends AbstractSelfRegisteringType
 {
 
-    const DATETIME_IMMUTABLE = 'datetime_immutable';
+    const DOCTRINEUM_DATETIME_IMMUTABLE = 'doctrineum_datetime_immutable';
 
     /**
      * @inheritdoc
      */
     public function getName()
     {
-        return self::DATETIME_IMMUTABLE;
+        return self::DOCTRINEUM_DATETIME_IMMUTABLE;
     }
 
     /**

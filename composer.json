@@ -1,7 +1,7 @@
 {
   "name": "doctrineum/datetime-immutable",
   "type": "library",
-  "description": "DateTimeImmutable as a type for Doctrine",
+  "description": "DateTimeImmutable as a type for Doctrine - abandoned as doctrine/dba already implement this",
   "keywords": [
     "Doctrine",
     "datetime",
