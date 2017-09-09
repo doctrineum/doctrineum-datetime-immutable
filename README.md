@@ -1,10 +1,13 @@
 [![Test Coverage](https://codeclimate.com/github/jaroslavtyc/doctrineum-datetime-immutable/badges/coverage.svg)](https://codeclimate.com/github/jaroslavtyc/doctrineum-datetime-immutable/coverage)
 [![License](https://poser.pugx.org/doctrineum/datetime-immutable/license)](https://packagist.org/packages/doctrineum/datetime-immutable)
 
+# Deprecated
+**Use [Doctrine\DBAL\Types\DateTimeImmuable](https://github.com/doctrine/dbal/blob/master/lib/Doctrine/DBAL/Types/DateTimeImmutableType.php) instead.**
+
 ## Do you need it?
 
  - first of all, think twice if you need a new type into your application
-    * isn't [Doctrine \DateTime](http://doctrine-orm.readthedocs.org/projects/doctrine-orm/en/latest/cookbook/working-with-datetime.html) enough?
+    * isn't [Doctrine\DBAL\Types\DateTime](http://doctrine-orm.readthedocs.org/projects/doctrine-orm/en/latest/cookbook/working-with-datetime.html) enough?
  - on the other side, immutable object of any time can save you a lot of problems and time...
 
 # Usage
